@@ -1,0 +1,32 @@
+<mat-card>
+    <h1>Formulario</h1>
+    <form [formGroup]="formLogin" (ngSubmit)="onSubmit()">
+    
+      <mat-form-field appearance="fill">
+        <mat-label>Ingresa tu usuario</mat-label>
+        <input matInput type="usuario" required formControlName="usuario" />
+        <mat-error *ngIf="formLogin.controls['usuario'].hasError('required')">usuario es requerida.</mat-error>
+        <mat-error *ngIf="formLogin.controls['usuario'].hasError('minlength')">usuario debe contener mínimo 3
+          carateres.</mat-error>
+        <mat-error *ngIf="formLogin.controls['usuario'].hasError('maxlength')">usuario debe contener máximo 20
+          carateres.</mat-error>
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill">
+        <mat-label>Ingresa tu contraseña</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" required formControlName="password" />
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide" type="button">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="formLogin.controls['password'].hasError('required')">Contraseña es requerida.</mat-error>
+        <mat-error *ngIf="formLogin.controls['password'].hasError('minlength')">Contraseña debe tener al menos 8
+          caracteres.</mat-error>
+        <mat-error *ngIf="formLogin.controls['password'].hasError('maxlength')">Contraseña no puede tener mas de 16
+          caracteres.</mat-error>
+      </mat-form-field>
+  
+      <button class="btnEnviar"  color="primary"  mat-raised-button [disabled]="!formLogin.valid" type="submit">Aceptar</button>
+  
+    </form>
+  </mat-card>
